@@ -533,12 +533,12 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         }
         if (selectCount < mMaxCount) {
             mTvCommit.setEnabled(true);
-            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
+//            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
             return;
         }
         if (selectCount == mMaxCount) {
             mTvCommit.setEnabled(true);
-            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
+//            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
             return;
         }
     }
