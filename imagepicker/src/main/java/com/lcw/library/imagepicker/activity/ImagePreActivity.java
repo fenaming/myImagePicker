@@ -6,12 +6,14 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.lcw.library.imagepicker.R;
 import com.lcw.library.imagepicker.adapter.ImagePreViewAdapter;
 import com.lcw.library.imagepicker.data.MediaFile;
@@ -45,6 +47,7 @@ public class ImagePreActivity extends BaseActivity {
     private LinearLayout mLlPreSelect;
     private ImageView mIvPreCheck;
     private ImagePreViewAdapter mImagePreViewAdapter;
+    Toolbar mToolbar;
 
 
     @Override
@@ -60,6 +63,12 @@ public class ImagePreActivity extends BaseActivity {
         mViewPager = findViewById(R.id.vp_main_preImage);
         mLlPreSelect = findViewById(R.id.ll_pre_select);
         mIvPreCheck = findViewById(R.id.iv_item_check);
+        mToolbar = (Toolbar)findViewById(R.id.layout_actionBar);
+        ImmersionBar.with(this)
+                .titleBar(mToolbar)
+//                .statusBarView(R.id.tv_actionBar_title)
+                .statusBarDarkFont(true, 0.2f)
+                .init();
     }
 
     @Override
@@ -212,4 +221,10 @@ public class ImagePreActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        ImmersionBar.with(this).destroy();
+    }
 }
