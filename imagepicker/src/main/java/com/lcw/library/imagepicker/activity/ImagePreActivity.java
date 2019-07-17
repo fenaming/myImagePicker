@@ -65,7 +65,7 @@ public class ImagePreActivity extends BaseActivity {
     @Override
     protected void initListener() {
 
-        findViewById(R.id.tv_actionBar_title).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.iv_actionBar_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ImagePicker.getInstance()
-                        .setTitle("取消")//设置标题
+                        .setTitle("")//设置标题
                         .showCamera(true)//设置是否显示拍照按钮
                         .showImage(true)//设置是否展示图片
                         .showVideo(false)//设置是否展示视频

@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.lcw.library.imagepicker.ImagePicker;
 import com.lcw.library.imagepicker.R;
 import com.lcw.library.imagepicker.adapter.ImageFoldersAdapter;
@@ -69,6 +71,7 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
     private boolean isSingleType;
     private int mMaxCount;
     private List<String> mImagePaths;
+    Toolbar mToolbar;
 
     /**
      * 界面UI
@@ -151,7 +154,6 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         }
     }
 
-
     /**
      * 初始化布局控件
      */
@@ -160,6 +162,7 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
 
         mProgressDialog = ProgressDialog.show(this, null, getString(R.string.scanner_image));
 
+        mToolbar = (Toolbar)findViewById(R.id.layout_actionBar);
         //顶部栏相关
         mTvTitle = findViewById(R.id.tv_actionBar_title);
         if (TextUtils.isEmpty(mTitle)) {
@@ -167,6 +170,11 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         } else {
             mTvTitle.setText(mTitle);
         }
+        ImmersionBar.with(this)
+                .titleBar(mToolbar)
+//                .statusBarView(R.id.tv_actionBar_title)
+                .statusBarDarkFont(true, 0.2f)
+                .init();
 
 //        ImmersionBar.with(this).init();
         mTvCommit = findViewById(R.id.tv_actionBar_commit);
@@ -231,7 +239,7 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
     @Override
     protected void initListener() {
 
-        findViewById(R.id.tv_actionBar_title).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.iv_actionBar_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setResult(RESULT_CANCELED);
@@ -608,11 +616,11 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
                 //添加到选中集合
                 SelectionManager.getInstance().addImageToSelectList(mFilePath);
 
-//                ArrayList<String> list = new ArrayList<>(SelectionManager.getInstance().getSelectPaths());
-//                Intent intent = new Intent();
-//                intent.putStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES, list);
-//                setResult(RESULT_OK, intent);
-//                finish();
+                ArrayList<String> list = new ArrayList<>(SelectionManager.getInstance().getSelectPaths());
+                Intent intent = new Intent();
+                intent.putStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES, list);
+                setResult(RESULT_OK, intent);
+                finish();
             }
 
             if (requestCode == REQUEST_SELECT_IMAGES_CODE) {
@@ -655,6 +663,7 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         } catch (Exception e) {
             e.printStackTrace();
         }
+        ImmersionBar.with(this).destroy();
     }
 
 }
