@@ -143,6 +143,7 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         mMaxCount = ConfigManager.getInstance().getMaxCount();
         SelectionManager.getInstance().setMaxCount(mMaxCount);
 
+        SelectionManager.getInstance().removeAll();
         //载入历史选择记录
         mImagePaths = ConfigManager.getInstance().getImagePaths();
         if (mImagePaths != null && !mImagePaths.isEmpty()) {
@@ -607,11 +608,11 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
                 //添加到选中集合
                 SelectionManager.getInstance().addImageToSelectList(mFilePath);
 
-                ArrayList<String> list = new ArrayList<>(SelectionManager.getInstance().getSelectPaths());
-                Intent intent = new Intent();
-                intent.putStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES, list);
-                setResult(RESULT_OK, intent);
-                finish();
+//                ArrayList<String> list = new ArrayList<>(SelectionManager.getInstance().getSelectPaths());
+//                Intent intent = new Intent();
+//                intent.putStringArrayListExtra(ImagePicker.EXTRA_SELECT_IMAGES, list);
+//                setResult(RESULT_OK, intent);
+//                finish();
             }
 
             if (requestCode == REQUEST_SELECT_IMAGES_CODE) {
