@@ -130,8 +130,13 @@ public class ImagePreActivity extends BaseActivity {
         mTvCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_OK, new Intent());
-                finish();
+                int selectCount = SelectionManager.getInstance().getSelectPaths().size();
+                if (selectCount == 0) {
+                    Toast.makeText(ImagePreActivity.this, "请选择需要上传的图片", Toast.LENGTH_LONG).show();
+                }else{
+                    setResult(RESULT_OK, new Intent());
+                    finish();
+                }
             }
         });
 
@@ -180,18 +185,19 @@ public class ImagePreActivity extends BaseActivity {
         //改变确定按钮UI
         int selectCount = SelectionManager.getInstance().getSelectPaths().size();
         if (selectCount == 0) {
-            mTvCommit.setEnabled(false);
+            mTvCommit.setEnabled(true);
+//            Toast.makeText(this, "请选择需要上传的图片", Toast.LENGTH_LONG).show();
             mTvCommit.setText(getString(R.string.confirm));
             return;
         }
         if (selectCount < maxCount) {
             mTvCommit.setEnabled(true);
-//            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, maxCount));
+            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, maxCount));
             return;
         }
         if (selectCount == maxCount) {
             mTvCommit.setEnabled(true);
-//            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, maxCount));
+            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, maxCount));
             return;
         }
     }

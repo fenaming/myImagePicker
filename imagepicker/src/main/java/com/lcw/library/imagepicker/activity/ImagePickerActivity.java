@@ -250,7 +250,12 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         mTvCommit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commitSelection();
+                int selectCount = SelectionManager.getInstance().getSelectPaths().size();
+                if (selectCount == 0) {
+                    Toast.makeText(ImagePickerActivity.this, "请选择需要上传的图片", Toast.LENGTH_LONG).show();
+                }else{
+                    commitSelection();
+                }
             }
         });
 
@@ -527,18 +532,19 @@ public class ImagePickerActivity extends BaseActivity implements ImagePickerAdap
         //改变确定按钮UI
         int selectCount = SelectionManager.getInstance().getSelectPaths().size();
         if (selectCount == 0) {
-            mTvCommit.setEnabled(false);
+            mTvCommit.setEnabled(true);
+//            Toast.makeText(this, "请选择需要上传的图片", Toast.LENGTH_LONG).show();
             mTvCommit.setText(getString(R.string.confirm));
             return;
         }
         if (selectCount < mMaxCount) {
             mTvCommit.setEnabled(true);
-//            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
+            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
             return;
         }
         if (selectCount == mMaxCount) {
             mTvCommit.setEnabled(true);
-//            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
+            mTvCommit.setText(String.format(getString(R.string.confirm_msg), selectCount, mMaxCount));
             return;
         }
     }
