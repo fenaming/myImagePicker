@@ -22,3 +22,5 @@
 
 #沉浸式效果com.gyf.barlibrary:barlibrary:2.3.0
 -keep class com.gyf.barlibrary.* {*;}
+-keep class com.gyf.immersionbar.* {*;}
+-dontwarn com.gyf.immersionbar.**
